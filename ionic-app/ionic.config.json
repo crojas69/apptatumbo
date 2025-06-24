@@ -1,0 +1,7 @@
+{
+  "name": "apptatumbo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
