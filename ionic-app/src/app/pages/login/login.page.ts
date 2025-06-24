@@ -24,7 +24,7 @@ export class LoginPage {
   async login() {
     this.auth.login(this.email, this.password).subscribe({
       next: async () => {
-        this.router.navigateByUrl('/site-survey');
+        this.router.navigateByUrl('/home');
       },
       error: async () => {
         const toast = await this.toastCtrl.create({

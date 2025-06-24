@@ -1,0 +1,70 @@
+<app-header></app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Site Survey</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <form (ngSubmit)="submitSurvey()">
+          <ion-item>
+            <ion-label position="floating">Nombre del sitio</ion-label>
+            <ion-input [(ngModel)]="form.siteName" name="siteName" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Fecha de visita</ion-label>
+            <ion-datetime display-format="YYYY-MM-DD" [(ngModel)]="form.siteDate" name="siteDate"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Equipo de trabajo</ion-label>
+            <ion-input [(ngModel)]="form.team" name="team"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Objetivos</ion-label>
+            <ion-select [(ngModel)]="form.objetivos" name="objetivos" multiple>
+              <ion-select-option *ngFor="let obj of objetivos" [value]="obj.value">
+                {{ obj.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Observaciones</ion-label>
+            <ion-textarea [(ngModel)]="form.observacionesSite" name="observacionesSite"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Detalle del BOM</ion-label>
+            <ion-textarea [(ngModel)]="form.bomDetalle" name="bomDetalle"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Mantenimiento preventivo</ion-label>
+            <ion-textarea [(ngModel)]="form.mantPreventivo" name="mantPreventivo"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Mantenimiento correctivo</ion-label>
+            <ion-textarea [(ngModel)]="form.mantCorrectivo" name="mantCorrectivo"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Formación/Capacitación</ion-label>
+            <ion-textarea [(ngModel)]="form.formacion" name="formacion"></ion-textarea>
+          </ion-item>
+
+          <ion-button expand="block" type="submit" color="primary" class="ion-margin-top">
+            Enviar encuesta
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

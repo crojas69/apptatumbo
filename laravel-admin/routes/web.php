@@ -6,10 +6,18 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiteSurveyController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\VisitApprovalController;
+
+
+Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return redirect()->route('login'); // Redirige a la página de login por defecto
 });
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/site-survey', [SiteSurveyController::class, 'index'])->name('site-survey.index');
+Route::get('/visit-approval', [VisitApprovalController::class, 'index'])->name('visit-approval.index');
+
 
 // Rutas de autenticación para el login
 Route::middleware('guest')->group(function () {
@@ -19,8 +27,6 @@ Route::middleware('guest')->group(function () {
 
 // Rutas protegidas por autenticación (middleware)
 Route::middleware('auth')->group(function () {
-    // Ruta para el Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Ruta para las encuestas de administración
     Route::get('/admin/surveys', [SiteSurveyController::class, 'index'])->name('admin.surveys');

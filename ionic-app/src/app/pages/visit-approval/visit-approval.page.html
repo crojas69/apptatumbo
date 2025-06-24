@@ -1,0 +1,157 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-back-button defaultHref="/home"></ion-back-button> 
+    <ion-title>5.2.9. VISITA DE CAMPO – APROBACIÓN RED DE ACCESO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <!-- 1. Información General -->
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label position="stacked">Nombre del sitio</ion-label>
+        <ion-input formControlName="siteName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Fecha de visita</ion-label>
+        <ion-datetime display-format="YYYY-MM-DD" formControlName="visitDate"></ion-datetime>
+      </ion-item>
+    </ion-list>
+
+    <!-- 2. Cobertura (RSSI) -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Guía Cobertura (RSSI ≥ -65 dBm)</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img src="assets/images/guide-rssi.jpg" alt="Guía RSSI" />
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      <ion-label position="stacked">Nivel RSSI (dBm)</ion-label>
+      <ion-input type="number" formControlName="rssi"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Foto Cobertura</ion-label>
+      <ion-button fill="outline" (click)="takePhoto('coveragePhoto')">
+        📷 Capturar
+      </ion-button>
+    </ion-item>
+    <ion-img *ngIf="form.value.coveragePhoto"
+             [src]="form.value.coveragePhoto"
+             class="photo-preview"></ion-img>
+
+    <!-- 3. Pruebas de Conectividad -->
+    <ion-list lines="inset">
+      <ion-list-header>Pruebas de Conectividad</ion-list-header>
+      <ion-item>
+        <ion-textarea placeholder="Resultados" formControlName="connectivityResults"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Foto Conectividad</ion-label>
+        <ion-button fill="outline" (click)="takePhoto('connectivityPhoto')">
+          📷 Capturar
+        </ion-button>
+      </ion-item>
+      <ion-img *ngIf="form.value.connectivityPhoto"
+               [src]="form.value.connectivityPhoto"
+               class="photo-preview"></ion-img>
+    </ion-list>
+
+    <!-- 4. Pruebas 2.4/5 GHz -->
+    <ion-list lines="inset">
+      <ion-list-header>Pruebas 2.4 GHz / 5 GHz</ion-list-header>
+      <ion-item>
+        <ion-input type="number" placeholder="# Dispositivos" formControlName="devicesTested"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Foto Pruebas</ion-label>
+        <ion-button fill="outline" (click)="takePhoto('devicesPhoto')">
+          📷 Capturar
+        </ion-button>
+      </ion-item>
+      <ion-img *ngIf="form.value.devicesPhoto"
+               [src]="form.value.devicesPhoto"
+               class="photo-preview"></ion-img>
+    </ion-list>
+
+    <!-- 5. Acceso Web / Restricciones -->
+    <ion-list lines="inset">
+      <ion-list-header>Acceso Web y Restricciones</ion-list-header>
+      <ion-item>
+        <ion-textarea placeholder="Resultados" formControlName="webAccessResults"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Foto Web</ion-label>
+        <ion-button fill="outline" (click)="takePhoto('webAccessPhoto')">
+          📷 Capturar
+        </ion-button>
+      </ion-item>
+      <ion-img *ngIf="form.value.webAccessPhoto"
+               [src]="form.value.webAccessPhoto"
+               class="photo-preview"></ion-img>
+    </ion-list>
+
+    <!-- 6. Funcionalidad de equipos -->
+    <ion-list lines="inset">
+      <ion-list-header>Funcionalidad de Equipos</ion-list-header>
+      <ion-item>
+        <ion-textarea placeholder="Observaciones" formControlName="equipmentFunctionality"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Foto Equipo</ion-label>
+        <ion-button fill="outline" (click)="takePhoto('equipmentPhoto')">
+          📷 Capturar
+        </ion-button>
+      </ion-item>
+      <ion-img *ngIf="form.value.equipmentPhoto"
+               [src]="form.value.equipmentPhoto"
+               class="photo-preview"></ion-img>
+    </ion-list>
+
+    <!-- 7. Relación de equipos recibidos -->
+    <ion-list lines="inset">
+      <ion-list-header>Relación de Equipos Recibidos</ion-list-header>
+      <ion-item>
+        <ion-textarea placeholder="Lista de equipos" formControlName="equipmentList"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Foto Lista</ion-label>
+        <ion-button fill="outline" (click)="takePhoto('equipmentListPhoto')">
+          📷 Capturar
+        </ion-button>
+      </ion-item>
+      <ion-img *ngIf="form.value.equipmentListPhoto"
+               [src]="form.value.equipmentListPhoto"
+               class="photo-preview"></ion-img>
+    </ion-list>
+
+    <!-- 8. Conclusiones -->
+    <ion-item>
+      <ion-label position="stacked">Conclusiones (Aprobado/No aprobado)</ion-label>
+      <ion-select formControlName="conclusion">
+        <ion-select-option value="aprobado">Aprobado</ion-select-option>
+        <ion-select-option value="no_aprobado">No aprobado</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Firma digital -->
+    <ion-item lines="none">
+      <ion-icon name="brush-outline" slot="start"></ion-icon>
+      <ion-label>Firma del Supervisor</ion-label>
+    </ion-item>
+    <canvas #signatureCanvas class="signature-pad"></canvas>
+    <ion-button fill="clear" (click)="clearSignature()">Limpiar Firma</ion-button>
+    <ion-button expand="block" (click)="saveSignature()">Guardar Firma</ion-button>
+    <ion-img *ngIf="signatureData"
+             [src]="signatureData"
+             class="photo-preview"></ion-img>
+
+    <!-- Submit -->
+    <ion-button type="submit" expand="block" color="primary" [disabled]="form.invalid" class="submit-btn">
+      Enviar Visita
+    </ion-button>
+  </form>
+</ion-content>

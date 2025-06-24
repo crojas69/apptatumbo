@@ -1,27 +1,50 @@
-#container {
+.home-bg {
+  --background: linear-gradient(135deg, #FF8F00 0%, #BF360C 100%);
+}
+
+.welcome {
   text-align: center;
+  color: #fff;
+  margin-bottom: 2rem;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  h1 {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+  p {
+    font-size: 1.1rem;
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
+.form-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 1rem 0;
+  border-radius: 12px;
+  overflow: hidden;
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
 
-  color: #8c8c8c;
+  ion-card-header {
+    text-align: center;
+    background: #fff;
+    padding: 2rem 1rem;
 
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--ion-color-primary);
+      margin-bottom: 0.5rem;
+    }
+    ion-card-title {
+      font-size: 1.3rem;
+      margin: 0.2rem 0;
+    }
+    ion-card-subtitle {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  }
 }

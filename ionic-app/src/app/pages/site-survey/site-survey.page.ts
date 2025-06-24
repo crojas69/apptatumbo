@@ -1,117 +1,104 @@
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { OfflineStorageService } from '../../services/offline-storage.service';
+// src/app/site-survey/site-survey.page.ts
+
 import {
-  IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol,
-  IonInput, IonLabel, IonItem, IonDatetime, IonTextarea, IonSelect,
-  IonSelectOption, IonButton
-} from '@ionic/angular/standalone';
-import { NetworkService } from '../../services/network.service';
-import { StorageService } from '../../services/storage.service';
-import { AuthService } from '../../services/auth.service';
-import { ToastController } from '@ionic/angular';
-import { HeaderComponent } from '../../components/header.component';
+  Component,
+  ViewChild,
+  ElementRef,
+  AfterViewInit
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Camera, CameraResultType } from '@capacitor/camera';
+import SignaturePad from 'signature_pad';
 
 @Component({
   selector: 'app-site-survey',
   standalone: true,
+  imports: [IonicModule, CommonModule, ReactiveFormsModule],
   templateUrl: './site-survey.page.html',
   styleUrls: ['./site-survey.page.scss'],
-  imports: [
-    CommonModule, FormsModule, IonHeader, IonToolbar, IonTitle, IonContent,
-    IonGrid, IonRow, IonCol, IonInput, IonLabel, IonItem, IonDatetime,
-    IonTextarea, IonSelect, IonSelectOption, IonButton, HeaderComponent
-  ]
 })
-export class SiteSurveyPage implements OnInit {
-  form = {
-    siteName: '', siteDate: '', team: '',
-    objetivos: [], observacionesSite: '', lld: {},
-    bomDetalle: '', mantPreventivo: '', mantCorrectivo: '',
-    soporte: '', formacion: '', aprobacion: {},
-    firmaSurveyor: '', firmaTestigo: '',
-    fotoTopografia: '', fotoInfraestructura: '', fotoRF: '',
-    fotoHeadend: '', fotoHogares: ''
-  };
+export class SiteSurveyPage implements AfterViewInit {
+  surveyForm: FormGroup;
 
-  objetivos = [
-    { label: 'Evaluar viabilidad de conectividad', value: 'viabilidad' },
-    { label: 'Identificar puntos de conexión', value: 'ubicacion_puntos' },
-    { label: 'Definir rutas y obstáculos', value: 'rutas_optimas' },
-    { label: 'Ubicación del Headend', value: 'headend' }
-  ];
+  @ViewChild('signatureCanvas', { static: true })
+  signatureCanvas!: ElementRef<HTMLCanvasElement>;
+  private sigPad!: SignaturePad;
+  signatureData?: string;
 
-  constructor(
-    private network: NetworkService,
-    private storage: StorageService,
-    private auth: AuthService,
-    private toastCtrl: ToastController,
-    private offlineService: OfflineStorageService
-  ) {}
+  constructor(private fb: FormBuilder) {
+    this.surveyForm = this.fb.group({
+      siteName: ['', Validators.required],
+      address: ['', Validators.required],
 
-  async ngOnInit() {
-    await this.offlineService.initDB();
-    await this.offlineService.syncWithServer();
+      topographicConditions: ['', Validators.required],
+      infrastructure: ['', Validators.required],
+      rfNoise: [null, Validators.required],
+      rfSnr: [null, Validators.required],
+      cableLastMile: ['', Validators.required],
+      viabilityConnectivity: ['', Validators.required],
+      fiberPoints: ['', Validators.required],
+      obstacles: ['', Validators.required],
+      headendLocation: ['', Validators.required],
+      homesLocation: ['', Validators.required],
+
+      topographyPhoto: [null, Validators.required],
+      infrastructurePhoto: [null, Validators.required],
+      rfSurveyPhoto: [null, Validators.required],
+      cablePhoto: [null, Validators.required],
+      headendPhoto: [null, Validators.required],
+      homesPhoto: [null, Validators.required],
+
+      signature: [null]
+    });
   }
 
-  async submitSurvey() {
-    // Validar los campos antes de proceder
-    if (!this.isFormValid()) {
-      const toast = await this.toastCtrl.create({
-        message: 'Por favor completa los campos obligatorios.',
-        duration: 2500,
-        color: 'danger'
+  ngAfterViewInit() {
+    this.sigPad = new SignaturePad(this.signatureCanvas.nativeElement, {
+      penColor: 'var(--ion-color-primary)',
+      backgroundColor: 'rgba(255,255,255,0)'
+    });
+  }
+
+  /** Captura una foto y la asigna al formulario, usando null si dataUrl es undefined */
+  async takePhoto(controlName: string) {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 80,
+        resultType: CameraResultType.DataUrl
       });
-      await toast.present();
+      this.surveyForm.get(controlName)
+        ?.setValue(image.dataUrl ?? null);
+    } catch (err) {
+      console.error('Error al tomar foto', err);
+    }
+  }
+
+  clearSignature() {
+    this.sigPad.clear();
+    this.signatureData = undefined;
+    this.surveyForm.get('signature')?.reset();
+  }
+
+  saveSignature() {
+    if (!this.sigPad.isEmpty()) {
+      this.signatureData = this.sigPad.toDataURL();
+      this.surveyForm.get('signature')?.setValue(this.signatureData);
+    }
+  }
+
+  submit() {
+    if (this.surveyForm.invalid) {
+      this.surveyForm.markAllAsTouched();
       return;
     }
-  
-    const online = this.network.isOnline.getValue();
-    const payload = { ...this.form };
-  
-    if (online) {
-      // Intentar enviar los datos al servidor
-      try {
-        await this.auth.sendSurvey(payload).toPromise();
-        const toast = await this.toastCtrl.create({
-          message: 'Encuesta enviada con éxito.',
-          duration: 2500,
-          color: 'success'
-        });
-        await toast.present();
-        await this.offlineService.saveLocally(payload); // Backup sincronizado
-        await this.offlineService.syncWithServer();
-      } catch (err) {
-        // Manejo de errores
-        await this.offlineService.saveLocally(payload);
-        const toast = await this.toastCtrl.create({
-          message: 'Error al enviar. Guardado localmente.',
-          duration: 2500,
-          color: 'warning'
-        });
-        await toast.present();
-      }
-    } else {
-      // Si no hay conexión, guardar localmente
-      await this.offlineService.saveLocally(payload);
-      const toast = await this.toastCtrl.create({
-        message: 'Sin conexión. Guardado localmente.',
-        duration: 2500,
-        color: 'medium'
-      });
-      await toast.present();
-    }
-
-  }
-
-  isFormValid(): boolean {
-    return (
-      !!this.form.siteName?.trim() &&
-      !!this.form.siteDate?.trim() &&
-      !!this.form.team?.trim() &&
-      Array.isArray(this.form.objetivos) &&
-      this.form.objetivos.length > 0
-    );
+    console.log('Payload 5.1.1:', this.surveyForm.value);
+    // TODO: enviar a API o guardar localmente
   }
 }

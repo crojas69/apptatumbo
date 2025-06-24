@@ -1,70 +1,194 @@
-<app-header></app-header>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-back-button defaultHref="/home"></ion-back-button> 
+    <ion-title>5.1.1. ESTUDIO DE CAMPO (SITE SURVEY) I.E.</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Site Survey</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="surveyForm" (ngSubmit)="submit()">
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <form (ngSubmit)="submitSurvey()">
-          <ion-item>
-            <ion-label position="floating">Nombre del sitio</ion-label>
-            <ion-input [(ngModel)]="form.siteName" name="siteName" required></ion-input>
-          </ion-item>
+    <!-- Datos básicos -->
+    <ion-list lines="full">
+      <ion-item>
+        <ion-icon name="business-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Nombre del sitio</ion-label>
+        <ion-input formControlName="siteName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="location-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Dirección</ion-label>
+        <ion-input formControlName="address"></ion-input>
+      </ion-item>
+    </ion-list>
 
-          <ion-item>
-            <ion-label position="floating">Fecha de visita</ion-label>
-            <ion-datetime display-format="YYYY-MM-DD" [(ngModel)]="form.siteDate" name="siteDate"></ion-datetime>
-          </ion-item>
+    <!-- Topografía -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Guía Topografía</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img src="assets/images/guide-topography.jpg" alt="Guía Topografía" />
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      <ion-label position="stacked">Condiciones Topográficas</ion-label>
+      <ion-textarea formControlName="topographicConditions"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="camera-outline" slot="start"></ion-icon>
+      <ion-label>Foto Topografía</ion-label>
+      <ion-button fill="outline" (click)="takePhoto('topographyPhoto')">
+        📷 Capturar
+      </ion-button>
+    </ion-item>
+    <ion-img
+      *ngIf="surveyForm.value.topographyPhoto"
+      [src]="surveyForm.value.topographyPhoto"
+      class="photo-preview"
+    ></ion-img>
 
-          <ion-item>
-            <ion-label position="floating">Equipo de trabajo</ion-label>
-            <ion-input [(ngModel)]="form.team" name="team"></ion-input>
-          </ion-item>
+    <!-- Infraestructura -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Guía Infraestructura</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img
+          src="assets/images/guide-infrastructure.jpg"
+          alt="Guía Infraestructura"
+        />
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      <ion-label position="stacked">Infraestructura existente</ion-label>
+      <ion-textarea formControlName="infrastructure"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="camera-outline" slot="start"></ion-icon>
+      <ion-label>Foto Infraestructura</ion-label>
+      <ion-button
+        fill="outline"
+        (click)="takePhoto('infrastructurePhoto')"
+      >
+        📷 Capturar
+      </ion-button>
+    </ion-item>
+    <ion-img
+      *ngIf="surveyForm.value.infrastructurePhoto"
+      [src]="surveyForm.value.infrastructurePhoto"
+      class="photo-preview"
+    ></ion-img>
 
-          <ion-item>
-            <ion-label>Objetivos</ion-label>
-            <ion-select [(ngModel)]="form.objetivos" name="objetivos" multiple>
-              <ion-select-option *ngFor="let obj of objetivos" [value]="obj.value">
-                {{ obj.label }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+    <!-- RF Survey -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Guía RF Survey</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img src="assets/images/guide-rf-survey.jpg" alt="Guía RF Survey" />
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      <ion-label position="stacked">Ruido electromagnético (dBm)</ion-label>
+      <ion-input type="number" formControlName="rfNoise"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">SNR (dB)</ion-label>
+      <ion-input type="number" formControlName="rfSnr"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="camera-outline" slot="start"></ion-icon>
+      <ion-label>Foto RF Survey</ion-label>
+      <ion-button fill="outline" (click)="takePhoto('rfSurveyPhoto')">
+        📷 Capturar
+      </ion-button>
+    </ion-item>
+    <ion-img
+      *ngIf="surveyForm.value.rfSurveyPhoto"
+      [src]="surveyForm.value.rfSurveyPhoto"
+      class="photo-preview"
+    ></ion-img>
 
-          <ion-item>
-            <ion-label position="floating">Observaciones</ion-label>
-            <ion-textarea [(ngModel)]="form.observacionesSite" name="observacionesSite"></ion-textarea>
-          </ion-item>
+    <!-- Cableado / Última milla -->
+    <ion-item>
+      <ion-label position="stacked">Cableado / Última milla</ion-label>
+      <ion-textarea formControlName="cableLastMile"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="camera-outline" slot="start"></ion-icon>
+      <ion-label>Foto Cableado</ion-label>
+      <ion-button fill="outline" (click)="takePhoto('cablePhoto')">
+        📷 Capturar
+      </ion-button>
+    </ion-item>
+    <ion-img
+      *ngIf="surveyForm.value.cablePhoto"
+      [src]="surveyForm.value.cablePhoto"
+      class="photo-preview"
+    ></ion-img>
 
-          <ion-item>
-            <ion-label position="floating">Detalle del BOM</ion-label>
-            <ion-textarea [(ngModel)]="form.bomDetalle" name="bomDetalle"></ion-textarea>
-          </ion-item>
+    <!-- Headend -->
+    <ion-item>
+      <ion-label position="stacked">Ubicación Headend</ion-label>
+      <ion-input formControlName="headendLocation"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="camera-outline" slot="start"></ion-icon>
+      <ion-label>Foto Headend</ion-label>
+      <ion-button fill="outline" (click)="takePhoto('headendPhoto')">
+        📷 Capturar
+      </ion-button>
+    </ion-item>
+    <ion-img
+      *ngIf="surveyForm.value.headendPhoto"
+      [src]="surveyForm.value.headendPhoto"
+      class="photo-preview"
+    ></ion-img>
 
-          <ion-item>
-            <ion-label position="floating">Mantenimiento preventivo</ion-label>
-            <ion-textarea [(ngModel)]="form.mantPreventivo" name="mantPreventivo"></ion-textarea>
-          </ion-item>
+    <!-- Hogares a conectar -->
+    <ion-item>
+      <ion-label position="stacked">Ubicación Hogares a conectar</ion-label>
+      <ion-input formControlName="homesLocation"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="camera-outline" slot="start"></ion-icon>
+      <ion-label>Foto Hogares</ion-label>
+      <ion-button fill="outline" (click)="takePhoto('homesPhoto')">
+        📷 Capturar
+      </ion-button>
+    </ion-item>
+    <ion-img
+      *ngIf="surveyForm.value.homesPhoto"
+      [src]="surveyForm.value.homesPhoto"
+      class="photo-preview"
+    ></ion-img>
 
-          <ion-item>
-            <ion-label position="floating">Mantenimiento correctivo</ion-label>
-            <ion-textarea [(ngModel)]="form.mantCorrectivo" name="mantCorrectivo"></ion-textarea>
-          </ion-item>
+    <!-- Firma digital -->
+    <ion-item lines="none">
+      <ion-icon name="brush-outline" slot="start"></ion-icon>
+      <ion-label>Firma del Cliente</ion-label>
+    </ion-item>
+    <canvas #signatureCanvas class="signature-pad"></canvas>
+    <ion-button fill="clear" (click)="clearSignature()">Limpiar Firma</ion-button>
+    <ion-button expand="block" (click)="saveSignature()">
+      Guardar Firma
+    </ion-button>
+    <ion-img
+      *ngIf="signatureData"
+      [src]="signatureData"
+      class="photo-preview"
+    ></ion-img>
 
-          <ion-item>
-            <ion-label position="floating">Formación/Capacitación</ion-label>
-            <ion-textarea [(ngModel)]="form.formacion" name="formacion"></ion-textarea>
-          </ion-item>
-
-          <ion-button expand="block" type="submit" color="primary" class="ion-margin-top">
-            Enviar encuesta
-          </ion-button>
-        </form>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <!-- Enviar -->
+    <ion-button
+      type="submit"
+      expand="block"
+      color="primary"
+      [disabled]="surveyForm.invalid"
+      class="submit-btn"
+    >
+      Enviar Survey
+    </ion-button>
+  </form>
 </ion-content>

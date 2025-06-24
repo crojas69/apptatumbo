@@ -8,6 +8,7 @@ defineCustomElements(window);
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
   standalone: true,
   imports: [IonApp, IonRouterOutlet],
 })
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {    
     this.auth.isAuthenticated().then((isLogged) => {
-      this.router.navigateByUrl(isLogged ? '/site-survey' : '/login');
+      this.router.navigateByUrl(isLogged ? '/home' : '/login');
     });
   }
 }

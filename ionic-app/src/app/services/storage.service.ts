@@ -1,38 +1,42 @@
+// src/app/services/storage.service.ts
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { Capacitor } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  // Usa el operador de afirmación no nula (!) para indicar que la propiedad se inicializa en otro lugar
-  private storage!: Storage;
+  private storage: Storage | null = null;
 
-  constructor(private storageService: Storage) {}
+  constructor(private storageService: Storage) {
+    this.init();
+  }
 
+  // Inicializa el servicio de almacenamiento
   async init() {
-    // Asegúrate de pasar el valor correcto según la plataforma
-    const platform = Capacitor.getPlatform();
+    const storage = await this.storageService.create();
+    this.storage = storage;
+  }
 
-    if (platform === 'web') {
-      // Configuración específica para la web
-      this.storage = await this.storageService.create();
-    } else {
-      // Configuración para otras plataformas
-      this.storage = await this.storageService.create();
+  // Guarda datos en el almacenamiento
+  async saveData(key: string, value: any) {
+    if (this.storage) {
+      await this.storage.set(key, value);
     }
   }
 
-  async saveData(key: string, value: any) {
-    await this.storage.set(key, value);
-  }
-
+  // Recupera datos del almacenamiento
   async getData(key: string) {
-    return await this.storage.get(key);
+    if (this.storage) {
+      return await this.storage.get(key);
+    }
+    return null;
   }
 
+  // Elimina datos del almacenamiento
   async removeData(key: string) {
-    await this.storage.remove(key);
+    if (this.storage) {
+      await this.storage.remove(key);
+    }
   }
 }
