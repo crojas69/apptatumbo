@@ -1,38 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { Capacitor } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  private _storage: Storage | null = null;
-  private SURVEY_STORAGE_KEY = 'local_surveys';
+  // Usa el operador de afirmación no nula (!) para indicar que la propiedad se inicializa en otro lugar
+  private storage!: Storage;
 
-  constructor(private storage: Storage) {
-    this.init();
-  }
-  
+  constructor(private storageService: Storage) {}
+
   async init() {
-    await this.storage.create();
-  }
-  
+    // Asegúrate de pasar el valor correcto según la plataforma
+    const platform = Capacitor.getPlatform();
 
-  async saveSurveyOffline(survey: any) {
-    const surveys = await this._storage?.get(this.SURVEY_STORAGE_KEY) ?? [];
-    surveys.push(survey);
-    await this._storage?.set(this.SURVEY_STORAGE_KEY, surveys);
-  }
-
-  async getOfflineSurveys(): Promise<any[]> {
-    return await this._storage?.get(this.SURVEY_STORAGE_KEY) ?? [];
+    if (platform === 'web') {
+      // Configuración específica para la web
+      this.storage = await this.storageService.create();
+    } else {
+      // Configuración para otras plataformas
+      this.storage = await this.storageService.create();
+    }
   }
 
-  async removeUploadedSurveys() {
-    return this._storage?.remove(this.SURVEY_STORAGE_KEY);
+  async saveData(key: string, value: any) {
+    await this.storage.set(key, value);
   }
-  async saveOfflineSurvey(data: any) {
-    const surveys = (await this.storage.get('offlineSurveys')) || [];
-    surveys.push(data);
-    await this.storage.set('offlineSurveys', surveys);
+
+  async getData(key: string) {
+    return await this.storage.get(key);
+  }
+
+  async removeData(key: string) {
+    await this.storage.remove(key);
   }
 }

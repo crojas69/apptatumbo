@@ -15,4 +15,15 @@ class SiteSurveyController extends Controller
 
         return view('admin.surveys.index', compact('surveys'));
     }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'siteName' => 'required',
+            'siteDate' => 'required|date',
+            'team' => 'required',
+        ]);
+
+        SiteSurvey::create($request->all());
+        return response()->json(['message' => 'Guardado correctamente'], 201);
+    }
 }
