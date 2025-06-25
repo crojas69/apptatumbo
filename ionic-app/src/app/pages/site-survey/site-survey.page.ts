@@ -14,8 +14,9 @@ import {
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import SignaturePad from 'signature_pad';
+import { SiteSurveyService } from '../../services/site-survey.service';  // 
 
 @Component({
   selector: 'app-site-survey',
@@ -78,6 +79,15 @@ export class SiteSurveyPage implements AfterViewInit {
     } catch (err) {
       console.error('Error al tomar foto', err);
     }
+  }
+
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+      quality: 100
+    });
+    console.log('Image URI: ', image.webPath);
   }
 
   clearSignature() {

@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-back-button defaultHref="/home"></ion-back-button> 
+    <ion-back-button defaultHref="/home"></ion-back-button>
     <ion-title>5.2.9. VISITA DE CAMPO – APROBACIÓN RED DE ACCESO</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form [formGroup]="form" (ngSubmit)="submit()">
+<ion-content class="ion-padding orange-bg">
+  <form [formGroup]="visitForm" (ngSubmit)="submit()">
 
     <!-- 1. Información General -->
     <ion-list lines="full">
@@ -39,8 +39,8 @@
         📷 Capturar
       </ion-button>
     </ion-item>
-    <ion-img *ngIf="form.value.coveragePhoto"
-             [src]="form.value.coveragePhoto"
+    <ion-img *ngIf="visitForm.value.coveragePhoto"
+             [src]="visitForm.value.coveragePhoto"
              class="photo-preview"></ion-img>
 
     <!-- 3. Pruebas de Conectividad -->
@@ -55,8 +55,8 @@
           📷 Capturar
         </ion-button>
       </ion-item>
-      <ion-img *ngIf="form.value.connectivityPhoto"
-               [src]="form.value.connectivityPhoto"
+      <ion-img *ngIf="visitForm.value.connectivityPhoto"
+               [src]="visitForm.value.connectivityPhoto"
                class="photo-preview"></ion-img>
     </ion-list>
 
@@ -72,8 +72,8 @@
           📷 Capturar
         </ion-button>
       </ion-item>
-      <ion-img *ngIf="form.value.devicesPhoto"
-               [src]="form.value.devicesPhoto"
+      <ion-img *ngIf="visitForm.value.devicesPhoto"
+               [src]="visitForm.value.devicesPhoto"
                class="photo-preview"></ion-img>
     </ion-list>
 
@@ -89,8 +89,8 @@
           📷 Capturar
         </ion-button>
       </ion-item>
-      <ion-img *ngIf="form.value.webAccessPhoto"
-               [src]="form.value.webAccessPhoto"
+      <ion-img *ngIf="visitForm.value.webAccessPhoto"
+               [src]="visitForm.value.webAccessPhoto"
                class="photo-preview"></ion-img>
     </ion-list>
 
@@ -106,8 +106,8 @@
           📷 Capturar
         </ion-button>
       </ion-item>
-      <ion-img *ngIf="form.value.equipmentPhoto"
-               [src]="form.value.equipmentPhoto"
+      <ion-img *ngIf="visitForm.value.equipmentPhoto"
+               [src]="visitForm.value.equipmentPhoto"
                class="photo-preview"></ion-img>
     </ion-list>
 
@@ -123,8 +123,8 @@
           📷 Capturar
         </ion-button>
       </ion-item>
-      <ion-img *ngIf="form.value.equipmentListPhoto"
-               [src]="form.value.equipmentListPhoto"
+      <ion-img *ngIf="visitForm.value.equipmentListPhoto"
+               [src]="visitForm.value.equipmentListPhoto"
                class="photo-preview"></ion-img>
     </ion-list>
 
@@ -149,8 +149,8 @@
              [src]="signatureData"
              class="photo-preview"></ion-img>
 
-    <!-- Submit -->
-    <ion-button type="submit" expand="block" color="primary" [disabled]="form.invalid" class="submit-btn">
+    <!-- Submit  <ion-button type="submit" expand="block" color="primary" [disabled]="visitForm.invalid" class="submit-btn">-->
+    <ion-button type="submit" expand="block" color="primary" class="submit-btn">
       Enviar Visita
     </ion-button>
   </form>

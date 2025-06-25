@@ -1,11 +1,15 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import * as dotenv from 'dotenv';
+
+// Cargar las variables de entorno
+dotenv.config();
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://localhost:8000/api'  // Para desarrollo
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

@@ -7,7 +7,7 @@
  * output CSS.
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
- */
+ */ 
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
@@ -35,3 +35,142 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+/* src/app/app.component.scss */
+body > app-root > ion-router-outlet > app-site-survey > ion-header{
+    float: left;
+}
+:root {
+    --ion-color-primary: #000 !important;
+    color:#fff !important;
+}
+
+
+.orange-bg {
+    --background: linear-gradient(135deg, #FF8F00 0%, #BF360C 100%);
+  }
+  
+  
+
+:host {
+    --background: transparent !important;
+}
+/* Estilo para el primer ion-toolbar dentro de ion-header */
+ion-header ion-toolbar:first-of-type, button > span {
+    padding-top: 1em;
+    height: 7em  !important;
+  }
+  .can-go-back > ion-header ion-back-button {
+    display: block !important;
+    height: 6em !important;
+    z-index: 10;  /* Asegura que el botón esté visible */
+  }
+  :host(.show-back-button) {
+    display: inline-block !important;
+}
+  ion-header ion-toolbar:first-of-type {
+    padding-top: 0em !important;
+    height: 8em !important;
+    float: left;
+}
+ion-back-button{
+    height:3em !important;
+}
+  /* Estilo adicional para el botón */
+  .button-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto !important;
+    height: 2em !important;
+    z-index: 1;
+  }
+  
+  .button-native, :host(.button-block) .button-native, :host(.button-solid), button, .button-native::after {
+    background: #000000 !important;
+    font-weight: bold !important;
+    font-size: 1.25em !important;
+    padding: 0.75em !important;
+    color: #fff;
+}
+
+:host(.button-block) .button-native, :host(.button-solid) {
+    background: orangered !important;
+    color: #fff;
+}
+ion-ripple-effect {
+    color: var(--ripple-color);
+    background: orangered  !important;
+    color: #fff;
+}
+ion-card{
+    margin: 0.5em 0;
+}
+
+ion-card button{
+    background: wheat !important;
+    font-weight: bold !important;
+    padding: 10px !important;
+}
+  .welcome {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 2rem;
+  
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    p {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .form-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 1rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+  
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+  
+    ion-card-header {
+      text-align: center;
+      background: #fff;
+      padding: 2rem 1rem;
+  
+      .card-icon {
+        font-size: 2.5rem;
+        color: var(--ion-color-primary);
+        margin-bottom: 0.5rem;
+        color: #000;
+      }
+      ion-card-title {
+        font-size: 1.3rem;
+        margin: 0.2rem 0;
+        color: #000;
+      }
+      ion-card-subtitle {
+        font-size: 0.9rem;
+        color: #000;
+      }
+    }
+  }
+
+  .signature-pad {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed var(--ion-color-primary);
+    border-radius: 8px;
+    margin: 1rem 0;
+    background: wheat;
+}
+  
+.button-inner, .submit-btn, body > app-root > ion-router-outlet > app-visit-approval > ion-content > form > ion-button:nth-child(14), body > app-root > ion-router-outlet > app-site-survey > ion-content > form > ion-button:nth-child(21){
+    color: #fff !important;
+}

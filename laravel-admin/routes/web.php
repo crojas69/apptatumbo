@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiteSurveyController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\VisitApprovalController;
-
+use App\Http\Controllers\ImageController;
 
 Auth::routes(['verify' => true]);
 
@@ -40,6 +40,13 @@ Route::middleware('auth')->group(function () {
     // Rutas de gestión de usuarios
     Route::resource('users', UserController::class)->middleware(['auth']);
 });
+
+
+// Ruta para subir la imagen
+Route::post('/upload', [ImageController::class, 'upload']);
+
+// Ruta para guardar la URL de la imagen
+Route::post('/save-image-url', [ImageController::class, 'saveImageUrl']);
 
 // Cerrar sesión
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

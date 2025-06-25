@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2>Registros de Site Survey</h2>
-    <table id="surveyTable" class="table table-striped">
+    <table id="surveyTable" class="table table-striped table-responsive">
         <thead>
             <tr>
                 <th>ID</th>
