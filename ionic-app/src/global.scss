@@ -46,18 +46,27 @@ body > app-root > ion-router-outlet > app-site-survey > ion-header{
     color:#fff !important;
 }
 
+ion-ripple-effect {
+  color: #000;
+  background: white !important;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 
 .orange-bg {
     --background: linear-gradient(135deg, #FF8F00 0%, #BF360C 100%);
   }
   
-  
+ .submit-btn{
+    background: #000 !important;
+  }
 
 :host {
     --background: transparent !important;
 }
 /* Estilo para el primer ion-toolbar dentro de ion-header */
-ion-header ion-toolbar:first-of-type, button > span {
+ion-header ion-toolbar:first-of-type {
     padding-top: 1em;
     height: 7em  !important;
   }
@@ -100,9 +109,8 @@ ion-back-button{
     color: #fff;
 }
 ion-ripple-effect {
-    color: var(--ripple-color);
     background: orangered  !important;
-    color: #fff;
+    color: #fff !important;
 }
 ion-card{
     margin: 0.5em 0;
@@ -173,4 +181,22 @@ ion-card button{
   
 .button-inner, .submit-btn, body > app-root > ion-router-outlet > app-visit-approval > ion-content > form > ion-button:nth-child(14), body > app-root > ion-router-outlet > app-site-survey > ion-content > form > ion-button:nth-child(21){
     color: #fff !important;
+}
+
+
+.signature-pad {
+  border: 1px solid #000;
+  width: 100%;
+  height: 300px;
+  background-color: #fff;
+}
+
+.photo-preview {
+  margin-top: 10px;
+  max-width: 100%;
+  max-height: 300px;
+}
+
+body > app-root > ion-router-outlet > app-site-survey > ion-content > form > ion-item > ion-button, body > app-root > ion-router-outlet > app-visit-approval > ion-content > form > ion-item > ion-button, body > app-root > ion-router-outlet > app-visit-approval > ion-content > form > ion-list > ion-item.item.md.item-lines-default.in-list.ion-focusable.hydrated.item-label > ion-button{
+  background-color: #fff;
 }

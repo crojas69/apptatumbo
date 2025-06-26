@@ -8,6 +8,9 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { HttpClientModule } from '@angular/common/http';
+import { RecopilerModule } from './recopiler/recopiler.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -15,6 +18,8 @@ import { AppRoutingModule } from './app-routing.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
+    HttpClientModule, // Asegúrate de importar HttpClientModule aquí
+    RecopilerModule  // Importamos el módulo Recopiler
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

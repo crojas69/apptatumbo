@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-back-button defaultHref="/home"></ion-back-button>
+    <ion-back-button defaultHref="/home"></ion-back-button> 
     <ion-title>
       5.2.9. VISITA DE CAMPO – APROBACIÓN RED DE ACCESO
     </ion-title>
@@ -10,10 +10,14 @@
 <ion-content class="ion-padding orange-bg">
   <form [formGroup]="visitForm" (ngSubmit)="submit()">
     <ion-list lines="full">
-      <ion-item>
+      <ion-item [class.invalid]="visitForm.get('siteName')?.invalid && visitForm.get('siteName')?.touched">
         <ion-label position="stacked">Nombre del sitio</ion-label>
-        <ion-input formControlName="siteName"></ion-input>
+        <ion-input formControlName="siteName" required></ion-input>
       </ion-item>
+      <ion-text color="danger" *ngIf="visitForm.get('siteName')?.invalid && visitForm.get('siteName')?.touched">
+        Este campo es obligatorio.
+      </ion-text>
+
       <ion-item>
         <ion-label position="stacked">Fecha de visita</ion-label>
         <ion-datetime
@@ -157,6 +161,7 @@
       type="submit"
       expand="block"
       color="primary"
+      [disabled]="visitForm.invalid"
       class="submit-btn">
       Enviar Visita
     </ion-button>

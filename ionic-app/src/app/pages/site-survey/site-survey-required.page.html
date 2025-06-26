@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-back-button defaultHref="/home"></ion-back-button>
+    <ion-back-button defaultHref="/home"></ion-back-button> 
     <ion-title>5.1.1. ESTUDIO DE CAMPO (SITE SURVEY) I.E.</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,10 +8,13 @@
 <ion-content class="ion-padding orange-bg">
   <form [formGroup]="surveyForm" (ngSubmit)="submit()">
     <ion-list lines="full">
-      <ion-item>
+      <ion-item [class.invalid]="surveyForm.get('siteName')?.invalid && surveyForm.get('siteName')?.touched">
         <ion-label position="stacked">Nombre del sitio</ion-label>
-        <ion-input formControlName="siteName"></ion-input>
+        <ion-input formControlName="siteName" required></ion-input>
       </ion-item>
+      <ion-text color="danger" *ngIf="surveyForm.get('siteName')?.invalid && surveyForm.get('siteName')?.touched">
+        Este campo es obligatorio.
+      </ion-text>
 
       <ion-item>
         <ion-label position="stacked">Dirección</ion-label>
@@ -139,7 +142,7 @@
       expand="block"
       color="primary"
       class="submit-btn">
-      Enviar Estudio
+      Enviar Survey
     </ion-button>
   </form>
 </ion-content>

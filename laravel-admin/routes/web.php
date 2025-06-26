@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiteSurveyController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\VisitApprovalController;
 use App\Http\Controllers\ImageController;
 

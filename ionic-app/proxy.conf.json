@@ -1,0 +1,10 @@
+{
+    "/unpkg": {
+      "target": "https://unpkg.com",
+      "secure": false,
+      "pathRewrite": {
+        "^/unpkg": ""
+      }
+    }
+  }
+  

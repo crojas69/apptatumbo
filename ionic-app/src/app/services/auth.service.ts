@@ -8,7 +8,7 @@ import { catchError, tap, switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/api'; // URL del backend Laravel
+  private apiUrl = 'http://127.0.0.1:8000/api'; // URL del backend Laravel
 
   constructor(private http: HttpClient, private storage: Storage) {}
 

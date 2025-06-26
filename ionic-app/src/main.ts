@@ -7,6 +7,7 @@ import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { defineCustomElements } from 'jeep-sqlite/loader';
+import 'jeep-sqlite'
 
 defineCustomElements(window);
 

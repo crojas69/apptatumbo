@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { OfflineStorageService } from '../services/offline-storage.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -28,9 +30,24 @@ export class HomePage {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private offlineStorage: OfflineStorageService,
+    private toastController: ToastController
+  ) {}
 
   goTo(route: string) {
     this.router.navigateByUrl(route);
+  }
+
+  async syncNow() {
+    await this.offlineStorage.syncPendingSubmissions();
+    const toast = await this.toastController.create({
+      message: '✅ Sincronización completada',
+      duration: 2500,
+      color: 'success',
+      position: 'bottom'
+    });
+    await toast.present();
   }
 }
