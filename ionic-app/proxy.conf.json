@@ -5,6 +5,14 @@
       "pathRewrite": {
         "^/unpkg": ""
       }
+    },
+    "/api_service": {
+      "target": "https://iabot.com.co",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api_service": "/api_service.php"
+      },
+      "logLevel": "debug"
     }
   }
-  

@@ -96,7 +96,7 @@ export class OfflineStorageService {
       for (const item of res.values) {
         const payload = JSON.parse(item.payload);
         try {
-          await this.http.post('https://iabot.com.co/api_service.php', payload).toPromise();
+          await this.http.post('/api_service', payload).toPromise();
           await this.db.run('UPDATE pending_submissions SET synced = 1 WHERE id = ?', [item.id]);
           console.log(`[Sync] ID ${item.id} synced`);
         } catch (error) {

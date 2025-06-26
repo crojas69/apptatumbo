@@ -55,7 +55,7 @@ export class AuthService {
       switchMap((token) => {
         if (token) {
           const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-          return this.http.post(`${this.apiUrl}/site-surveys`, data, { headers }).pipe(
+          return this.http.post('/api_service', data, { headers }).pipe(
             catchError((error) => {
               console.error('Error al enviar encuesta:', error);
               return of(null); // En caso de error, devuelve un Observable con null
