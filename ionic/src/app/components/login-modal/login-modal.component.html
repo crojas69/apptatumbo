@@ -1,0 +1,118 @@
+<div class="modal-overlay">
+  <ion-content class="flex ion-justify-content-center ion-align-items-center"
+    ><ion-title mat-dialog-title>
+      {{
+        isSignUpMode
+          ? ("login.sign_up_title" | translate)
+          : ("login.title" | translate)
+      }}
+    </ion-title>
+
+    <form
+      [formGroup]="isSignUpMode ? signUpForm : loginForm"
+      (ngSubmit)="isSignUpMode ? signUp() : login()"
+    >
+      <mat-dialog-content>
+        <!-- Username -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>{{ "login.username" | translate }}</mat-label>
+          <input
+            matInput
+            formControlName="username"
+            required
+            autocomplete="username"
+          />
+          <mat-error
+            *ngIf="
+              (isSignUpMode ? signUpForm : loginForm)
+                .get('username')
+                ?.hasError('required')
+            "
+          >
+            {{ "login.username_required" | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>{{ "login.password" | translate }}</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            required
+            autocomplete="current-password"
+          />
+          <mat-error
+            *ngIf="
+              (isSignUpMode ? signUpForm : loginForm)
+                .get('password')
+                ?.hasError('required')
+            "
+          >
+            {{ "login.password_required" | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Confirm Password (Sign Up only) -->
+        <mat-form-field
+          *ngIf="isSignUpMode"
+          appearance="fill"
+          class="full-width"
+        >
+          <mat-label>{{ "login.confirm_password" | translate }}</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="confirmPassword"
+            required
+          />
+          <mat-error
+            *ngIf="signUpForm.get('confirmPassword')?.hasError('required')"
+          >
+            {{ "login.confirm_password_required" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </mat-dialog-content>
+
+      <mat-dialog-actions>
+        <ion-button
+          mat-raised-button
+          type="button"
+          color="primary"
+          (click)="close()"
+        >
+          {{ "login.cancel_button" | translate }}
+        </ion-button>
+        <ion-button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="isSignUpMode ? signUpForm.invalid : loginForm.invalid"
+        >
+          {{
+            isSignUpMode
+              ? ("login.sign_up_here" | translate)
+              : ("login.login_button" | translate)
+          }}
+        </ion-button>
+      </mat-dialog-actions>
+
+      <div class="toggle">
+        <div *ngIf="!isSignUpMode" class="toggle-text">
+          <p (click)="toggleSignUpMode()">
+            {{ "login.no_account" | translate }}
+            <span>{{ "login.sign_up_here" | translate }}</span>
+          </p>
+        </div>
+
+        <div *ngIf="isSignUpMode" class="toggle-text">
+          <p (click)="toggleSignUpMode()">
+            {{ "login.have_account" | translate }}
+            <span>{{ "login.login_here" | translate }}</span>
+          </p>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</div>

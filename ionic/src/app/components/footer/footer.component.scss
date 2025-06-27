@@ -1,0 +1,119 @@
+.footer-container {
+  background-color: #000;
+  color: #fff;
+  padding: 1rem 3.5rem; // Reduced padding
+  width: 100%;
+
+  ion-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .copyright {
+      p {
+        justify-self: self-start;
+        margin: 0;
+        font-size: 0.75rem; // Reduced font size
+        font-weight: 500;
+      }
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      img {
+        width: 3.5rem; // Reduced size
+        height: auto;
+      }
+    }
+
+    .social-media {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1rem; // Reduced gap
+      width: 100%;
+
+      a {
+        color: #fff;
+        font-size: 1rem; // Reduced font size
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #aaa;
+        }
+      }
+    }
+  }
+}
+
+// Medium Screens (Tablet)
+@media (max-width: 890px) {
+  .logo img {
+    width: 3.25rem; // Reduced size
+  }
+
+  .social-media {
+    justify-content: center;
+    gap: 0.75rem; // Reduced gap
+
+    a {
+      font-size: 0.875rem; // Reduced font size
+    }
+  }
+}
+
+// Small/Mobile Screens
+@media (max-width: 767px) {
+  .footer-container {
+    text-align: center;
+    padding: 0.25rem 0; // Reduced padding
+  }
+
+  .footer-container ion-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  ion-col.social-media {
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .social-media {
+    order: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+
+    i {
+      font-size: 0.7rem; // Reduced font size
+    }
+  }
+
+  .logo {
+    width: 100%;
+
+    img {
+      width: 2rem; // Reduced size
+    }
+  }
+
+  ion-col.copyright {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    p {
+      font-size: 0.6rem !important; // Reduced font size
+    }
+  }
+  img {
+    width: 1.8rem !important; // Reduced size
+  }
+}

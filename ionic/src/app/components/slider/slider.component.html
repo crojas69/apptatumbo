@@ -1,0 +1,32 @@
+<ion-grid id="slider" class="slider">
+  <ion-row class="slider-content" align-items-center>
+    <!-- LEFT SIDE -->
+    <ion-col size="12" size-md="4" class="left">
+      <h1>{{ "slider.title" | translate }}</h1>
+      <p>{{ "slider.description" | translate }}</p>
+      <ion-button fill="outline">
+        <ion-icon name="cart" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <!-- IMAGE CONTAINER -->
+    <ion-col size="12" size-md="6" class="image-container">
+      <ion-img
+        [src]="slides[currentIndex]"
+        alt="Slide Image"
+        [class.fade]="fade"
+      ></ion-img>
+    </ion-col>
+
+    <!-- RIGHT BUTTON -->
+    <ion-col size="12" size-md="1" class="right">
+      <ion-button
+        fill="outline"
+        (click)="nextSlide()"
+        [class.left]="rtlDirection"
+      >
+        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

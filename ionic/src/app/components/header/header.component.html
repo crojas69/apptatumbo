@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar class="top">
+    <ion-buttons slot="start" class="left">
+      <div (click)="onLogoClick()" class="logo-representation desktop-only">
+        <span class="brand-name">GymShark</span>
+        <img src="assets/images/gymsharkLogo.png" alt="Logo" class="logo" />
+      </div>
+
+      <div class="lang-switcher desktop-only">
+        <ion-button fill="clear" (click)="changeLang('en')">{{
+          "langs.en" | translate
+        }}</ion-button>
+        <ion-button fill="clear" (click)="changeLang('ar')">{{
+          "langs.ar" | translate
+        }}</ion-button>
+      </div>
+    </ion-buttons>
+
+    <ion-buttons slot="end" class="right">
+      <div class="text-size desktop-only">
+        <ion-button fill="clear" (click)="increaseFontSize()">
+          {{ "size.increment" | translate }}
+        </ion-button>
+        <ion-button fill="clear" (click)="decreaseFontSize()">
+          {{ "size.decrement" | translate }}
+        </ion-button>
+      </div>
+
+      <ion-button
+        fill="clear"
+        *ngIf="!isLoggedIn"
+        (click)="openLoginModal()"
+        class="login-btn"
+      >
+        {{ "buttons.login" | translate }}
+      </ion-button>
+
+      <ion-button
+        fill="clear"
+        *ngIf="isLoggedIn"
+        (click)="logout()"
+        class="login-btn"
+      >
+        {{ "buttons.logout" | translate }}
+      </ion-button>
+
+      <div (click)="onLogoClick()" class="logo-representation mobile-only">
+        <span class="brand-name">GymShark</span>
+        <img src="assets/images/gymsharkLogo.png" alt="Logo" class="logo" />
+      </div>
+      <ion-button
+        fill="clear"
+        class="menu-icon mobile-only"
+        (click)="toggleMobileMenu()"
+      >
+        <ion-icon name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar class="menu desktop-menu">
+    <ion-buttons>
+      <ion-button fill="clear" (click)="scrollToSection('slider')">{{
+        "nav.home" | translate
+      }}</ion-button>
+      <ion-button fill="clear" (click)="scrollToSection('products')">{{
+        "nav.products" | translate
+      }}</ion-button>
+      <ion-button fill="clear" (click)="scrollToSection('locations')">{{
+        "nav.locations" | translate
+      }}</ion-button>
+      <ion-button fill="clear" (click)="scrollToSection('footer')">{{
+        "nav.follow" | translate
+      }}</ion-button>
+      <ion-button fill="clear" (click)="onEcommerceClick()">{{
+        "nav.ecommerce" | translate
+      }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div class="mobile-menu-overlay" *ngIf="showMobileMenu">
+    <ion-button fill="clear" class="close-btn" (click)="closeMobileMenu()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+
+    <img src="assets/images/gymsharkLogo.png" alt="Logo" class="logo-menu" />
+
+    <ion-list lines="none">
+      <ion-item button (click)="scrollToSection('slider'); closeMobileMenu()">{{
+        "nav.home" | translate
+      }}</ion-item>
+      <ion-item
+        button
+        (click)="scrollToSection('products'); closeMobileMenu()"
+        >{{ "nav.products" | translate }}</ion-item
+      >
+      <ion-item
+        button
+        (click)="scrollToSection('locations'); closeMobileMenu()"
+        >{{ "nav.locations" | translate }}</ion-item
+      >
+      <ion-item button (click)="scrollToSection('footer'); closeMobileMenu()">{{
+        "nav.follow" | translate
+      }}</ion-item>
+      <ion-item button (click)="closeMobileMenu(); onEcommerceClick()">{{
+        "nav.ecommerce" | translate
+      }}</ion-item>
+    </ion-list>
+
+    <div class="utilities">
+      <div class="lang-switcher">
+        <ion-button fill="clear" (click)="changeLang('en')">{{
+          "langs.en" | translate
+        }}</ion-button>
+        <ion-button fill="clear" (click)="changeLang('ar')">{{
+          "langs.ar" | translate
+        }}</ion-button>
+      </div>
+
+      <div class="text-size">
+        <ion-button fill="clear" (click)="increaseFontSize()">{{
+          "size.increment" | translate
+        }}</ion-button>
+        <ion-button fill="clear" (click)="decreaseFontSize()">{{
+          "size.decrement" | translate
+        }}</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+<app-login-modal
+  *ngIf="isLoginModalOpen"
+  (closeModal)="closeLoginModal()"
+  (loginSuccess)="closeLoginModal()"
+></app-login-modal>

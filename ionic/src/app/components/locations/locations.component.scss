@@ -1,0 +1,117 @@
+.locations {
+  width: 100%;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .map-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    ion-card {
+      width: 100%;
+      margin: 0;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border-radius: 0.5rem;
+    }
+  }
+
+  .store-buttons {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 1rem;
+    padding-bottom: 1rem; /* Optional: adds some spacing at the bottom */
+    height: auto; /* Allow dynamic height based on content */
+
+    /* Optional: to add a border around the container for visibility */
+    border-bottom: 1px solid #ccc;
+
+    ion-button {
+      font-size: 1rem;
+      width: 10rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid black;
+      background-color: white;
+      color: black;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: sans-serif;
+
+      &.active {
+        background-color: black;
+        color: white;
+      }
+
+      &:hover {
+        background-color: #222;
+        color: white;
+      }
+    }
+  }
+}
+
+// Apply horizontal scrollbar behavior on desktop (for screens above 768px)
+@media (min-width: 769px) {
+  .locations .store-buttons {
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    overflow-y: hidden; /* Prevent vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
+    height: fit-content; /* Limit the height of the container */
+    min-width: 100%; /* Make sure the container takes full width */
+  }
+}
+
+// Responsive styles for mobile devices (max-width: 768px)
+@media (max-width: 768px) {
+  .locations {
+    h2 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .map-container {
+      iframe {
+        height: 15rem;
+      }
+    }
+
+    .store-buttons {
+      flex-direction: column; /* Allow vertical stacking of buttons */
+      align-items: center;
+      gap: 0.75rem;
+
+      ion-button {
+        width: 80%;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .locations {
+    h2 {
+      font-size: 2rem;
+    }
+
+    .map-container {
+      iframe {
+        height: 12rem;
+      }
+    }
+
+    .store-buttons {
+      ion-button {
+        width: 100%;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}

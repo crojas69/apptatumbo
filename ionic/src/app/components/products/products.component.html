@@ -1,0 +1,55 @@
+<ion-content id="products" class="ion-padding-bottom" scroll-y="false">
+  <div class="header">
+    <h2>{{ "products.title" | translate }} &nbsp;</h2>
+    <ion-button
+      color="primary"
+      *ngIf="isLoggedIn"
+      (click)="openModal()"
+      aria-label="Add product"
+    >
+      +
+    </ion-button>
+  </div>
+
+  <p *ngIf="products.length === 0">
+    {{ "products.noAvailable" | translate }}
+  </p>
+
+  <div class="product-list-container">
+    <div class="inner-scroll">
+      <div class="product-list">
+        <ion-card class="product-card" *ngFor="let product of products">
+          <ion-card-content>
+            <img
+              *ngIf="product.image"
+              [src]="product.image"
+              alt="{{ product.name }} Image"
+            />
+            <div class="details">
+              <h3>{{ product.name }}</h3>
+              <small>{{ product.description }} / {{ product.color }}</small>
+              <p>{{ product.price }}$</p>
+            </div>
+
+            <ion-buttons *ngIf="isLoggedIn">
+              <ion-button
+                (click)="openModal(product)"
+                aria-label="Edit product"
+              >
+                ✏️
+              </ion-button>
+              <ion-button
+                (click)="deleteProduct(product.id)"
+                aria-label="Delete product"
+              >
+                🗑️
+              </ion-button>
+            </ion-buttons>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+</ion-content>

@@ -1,0 +1,51 @@
+:host,
+ion-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+app-header,
+app-footer {
+  width: 100%;
+}
+
+app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  transform: translateY(100%); /* hidden below the screen */
+  transition: transform 0.3s ease-in-out;
+}
+
+app-footer.visible {
+  transform: translateY(0); /* slide up into view */
+}
+
+ion-router-outlet {
+  height: auto;
+  overflow-y: scroll;
+}
+
+::ng-deep ion-router-outlet {
+  --overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.app-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* below modal but above everything else */
+}

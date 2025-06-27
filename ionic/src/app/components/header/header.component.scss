@@ -1,0 +1,296 @@
+:host {
+  display: block;
+  width: 100%;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+
+  ion-header {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+app-login-modal {
+  position: fixed; // Fixed position to stay in place during scrolling
+  top: 50%; // Vertically center the modal
+  left: 50%; // Horizontally center the modal
+  transform: translate(
+    -50%,
+    -50%
+  ); // Offset by 50% of its own width/height for perfect centering
+  z-index: 1500; // Ensure it's above other content
+  background-color: white; // Background color for the modal
+  width: 80%; // Set the width of the modal (adjust as needed)
+  max-width: 500px; // Set a maximum width (optional, can be adjusted)
+  padding: 1rem; // Padding inside the modal (optional, can be adjusted)
+  border-radius: 8px; // Rounded corners for the modal (optional)
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); // Optional shadow for styling
+}
+
+ion-toolbar {
+  margin: 0 auto;
+  width: 100%;
+  background-color: #fff;
+  color: #000;
+  border-bottom: 1px solid #eee;
+}
+
+ion-toolbar::part(container) {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.top {
+  padding: 1rem 3.5rem; // Reduced padding
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem; // Reduced gap
+}
+
+.logo-representation {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .brand-name {
+    font-size: 1.875rem; // Reduced font size
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .logo {
+    width: 3rem; // Reduced size
+    height: auto;
+    margin-top: 0.25rem; // Reduced margin
+  }
+}
+
+.lang-switcher {
+  ion-button {
+    background: transparent;
+    color: #000;
+    --padding-start: 0;
+    font-weight: 600;
+    font-size: 0.75rem; // Reduced font size
+
+    &:hover {
+      color: #666;
+    }
+  }
+}
+
+.text-size ion-button {
+  background: transparent;
+  border: 1px solid #000;
+  padding: 0.05rem 0.1rem;
+  margin: 0 0.25rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.75rem; // Reduced font size
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
+
+ion-button.login-btn {
+  padding: 0.1rem 0.6rem; // Reduced padding
+  background-color: #000;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.75rem; // Reduced font size
+  border-radius: 0.3125rem;
+
+  &:hover {
+    background-color: #222;
+  }
+}
+
+.menu.desktop-menu ion-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem; // Reduced gap
+
+  ion-button {
+    font-weight: 700;
+    font-size: 0.875rem; // Reduced font size
+    text-transform: uppercase;
+    position: relative;
+    --background: transparent;
+    --ripple-color: transparent;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -0.375rem;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #000;
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; // Reduced gap
+  padding-top: 4rem; // Reduced padding-top
+  overflow-y: scroll;
+  animation: slideIn 0.3s ease-in-out;
+
+  .close-btn {
+    position: absolute;
+    top: 1rem; // Reduced distance
+    right: 1.25rem; // Reduced distance
+    font-size: 1.5rem; // Reduced font size
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .logo-menu {
+    width: 3rem; // Reduced size
+    margin-left: 1rem;
+    height: auto;
+  }
+
+  ion-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem; // Reduced gap
+    margin-top: 1.5rem; // Reduced margin-top
+
+    ion-item {
+      font-size: 1rem; // Reduced font size
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  .utilities {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem; // Reduced gap
+    margin-top: 1.5rem; // Reduced margin-top
+    margin-bottom: 1.5rem; // Reduced margin-bottom
+  }
+}
+
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  app-login-modal {
+    width: 90%; // Adjust modal width for smaller screens
+    max-width: 400px; // Max width for smaller screens
+  }
+  .top {
+    flex-wrap: wrap;
+    padding: 1rem 0;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .left {
+    order: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .right {
+    order: 2;
+    margin-bottom: 0.5rem;
+  }
+
+  .mobile-only {
+    display: inline-block;
+    font-size: 1.5rem; // Reduced font size
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  ion-buttons.right {
+    gap: 5rem;
+  }
+
+  .close-btn {
+    color: black;
+  }
+
+  .brand-name {
+    font-size: 1.25rem; // Reduced font size
+    margin-right: 0.3rem;
+  }
+
+  .logo {
+    width: 2.5rem; // Reduced size
+    margin-top: 0.25rem; // Reduced margin
+  }
+
+  ion-button.login-btn {
+    font-size: 0.75rem; // Reduced font size
+    padding: 0.1rem 0.5rem; // Reduced padding
+  }
+
+  .menu.desktop-menu {
+    display: none;
+  }
+
+  .text-size ion-button {
+    color: black;
+  }
+  .logo-representation {
+    &.mobile-only {
+      justify-content: center;
+      display: flex;
+      width: 25%;
+
+      span {
+        font-size: 100%;
+      }
+    }
+  }
+}
+
+// ==== Animation ====
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

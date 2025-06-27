@@ -1,0 +1,52 @@
+ion-content {
+  height: 400px;
+}
+ion-title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: black;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.mat-label {
+  color: black;
+}
+
+::ng-deep .mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  ion-button {
+    min-width: 8rem;
+    color: black;
+    background-color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+.toggle {
+  margin-top: 2rem;
+  margin-left: 1rem;
+  text-align: center;
+  color: black;
+  span {
+    font-weight: 700;
+    cursor: pointer;
+  }
+}

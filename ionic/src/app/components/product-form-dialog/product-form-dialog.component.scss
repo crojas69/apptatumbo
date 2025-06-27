@@ -1,0 +1,149 @@
+::ng-deep form.ion-padding {
+  margin-top: 2rem;
+}
+
+// Make all mat-form-fields take full width
+mat-form-field.full-width {
+  width: 85%;
+  margin: 0 auto; // ← this centers it horizontally
+}
+
+// Fix mat-error padding
+::ng-deep .mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+}
+
+// Adjust dialog container height if needed
+::ng-deep .mat-mdc-dialog-container {
+  height: 500px;
+}
+
+::ng-deep form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-picker-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+// Upload section
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 85%;
+
+  .custom-file-label {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s;
+
+    span {
+      color: #888;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 200px;
+      display: block;
+      margin: 0 auto;
+      object-fit: contain;
+    }
+
+    &:hover {
+      border-color: #000;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  }
+
+  mat-error {
+    font-size: 0.75rem;
+    color: red;
+  }
+}
+
+// Color picker field container
+.color-picker-wrapper {
+  position: relative;
+  z-index: 10;
+}
+
+// Footer buttons
+ion-footer ion-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+ion-footer ion-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+ion-footer ion-button {
+  --border-radius: 8px;
+  --box-shadow: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+ion-footer ion-button[color="primary"] {
+  background-color: #3880ff;
+  color: #fff;
+
+  &:hover {
+    background-color: #3171e0;
+  }
+}
+
+ion-footer ion-toolbar ion-button {
+  background-color: white;
+  color: black;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); // subtle shadow for visibility
+  border: 1px solid transparent;
+
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}
+
+// Dialog actions if needed (Material Dialogs)
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+// Optional: Title style inside ion-title
+ion-title {
+  color: black;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+::ng-deep .mat-mdc-dialog-container form {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

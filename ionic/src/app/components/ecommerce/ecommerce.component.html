@@ -1,0 +1,74 @@
+<div class="ecommerce">
+  <div class="ecommerce-container">
+    <!-- Product List -->
+    <div class="product-list">
+      <ion-card
+        class="product-card"
+        *ngFor="let product of products"
+        [class.active]="isSelected(product)"
+        (click)="toggleSelection(product)"
+      >
+        <img [src]="product.image" [alt]="product.name" />
+
+        <ion-card-header class="product-details">
+          <ion-card-title>{{ product.name }}</ion-card-title>
+          <ion-card-subtitle>{{ product.description }}</ion-card-subtitle>
+          <div>
+            <p>{{ product.color }}</p>
+            <p>${{ product.price }}</p>
+          </div>
+        </ion-card-header>
+
+        <div *ngIf="isSelected(product)" class="quantity-controls">
+          <ion-button
+            size="small"
+            fill="clear"
+            (click)="decreaseQuantity(product); $event.stopPropagation()"
+          >
+            -
+          </ion-button>
+          <span>{{ selectedProducts[product.id].quantity }}</span>
+          <ion-button
+            size="small"
+            fill="clear"
+            (click)="increaseQuantity(product); $event.stopPropagation()"
+          >
+            +
+          </ion-button>
+        </div>
+      </ion-card>
+    </div>
+
+    <!-- Checkout -->
+    <div class="checkout">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ "checkout.title" | translate }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngIf="checkoutItems.length > 0; else empty">
+            <div class="checkout-item" *ngFor="let item of checkoutItems">
+              <p>{{ item.product.name }} (x{{ item.quantity }})</p>
+              <p>
+                <span dir="ltr">
+                  ${{ item.product.price }} x {{ item.quantity }} = ${{
+                    item.product.price * item.quantity
+                  }}
+                </span>
+              </p>
+            </div>
+            <hr />
+            <h3>{{ "checkout.total" | translate }}: ${{ totalPrice }}</h3>
+          </div>
+          <div class="empty">
+            <ng-template #empty>
+              <ion-text color="medium">
+                <p>{{ "checkout.empty" | translate }}</p>
+              </ion-text>
+            </ng-template>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</div>

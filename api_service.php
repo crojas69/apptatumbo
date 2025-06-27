@@ -9,6 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 
 // Conexión a MySQL
+//$host = "localhost";
+//$dbname = "apptatumbo";
+//$user = "apptatumbo";
+//$pass = "";
+//$port = 3306;
+
 $host = "52.45.232.96";
 $dbname = "iabotcom_apptatumbo";
 $user = "iabotcom_admintatumbo";
